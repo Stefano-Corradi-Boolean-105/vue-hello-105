@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CDN VueJs  -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.css' integrity='sha512-bR79Bg78Wmn33N5nvkEyg66hNg+xF/Q8NA8YABbj+4sBngYhv9P8eum19hdjYcY7vXk/vRkhM3v/ZndtgEXRWw==' crossorigin='anonymous'/>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Vue Hello</title>
+</head>
+<body>
+
+  <!-- elemento sul quale viene montato Vue  -->
+  <div id="app">
+    <div class="container my-5">
+      <!-- il v-model legge e scrive il value dell'input da un data  -->
+      <!-- tutte le volte che viene rilasciato una tasto scateno una funzione  -->
+      <input @keyup="tastoRilasciato" type="text" v-model="saluto">
+      <!-- scateno la funzione quando schiaccio INVIO  -->
+      <input @keyup.enter="handleInvio" type="text" v-model="coloreTesto">
+      
+
+      <input type="text" v-model="modificaTesto">
+
+      <br>
+      <input @keyup.enter="cambioColoreDaInvio" v-model="coloreTestoTemp" type="text" placeholder="Modifico il colore all'invio">
+      <!-- aggiungedo : prima di un attributo lo rendo dinamico con i nostri data  -->
+      <h1 class="sottolineato" :class="coloreTesto">{{ saluto }}</h1>
+
+      <!-- per avere più classi dinamiche le metto in un array ne binding  -->
+      <h2 :class="[coloreTesto, modificaTesto]">Ciao {{ nome }} {{ cognome }}</h2>
+
+      <input type="number" v-model="contatore">
+
+      <!-- per stampare una classe dinamica a una condizione la metto come proprità di un oggetto con la sitassi {'miaClasse': condizione}. Se la condizione è vera verrà stampata la classe -->
+      <h2 :class="{'rosso': isActive}">Il contatore è a: {{ contatore }}</h2>
+      <h2 :class="[{'rosso': isActive}, modificaTesto]">due classi dinamiche di cui una a codizione</h2>
+
+      <!-- quando c'è un v-bind non si usano le graffe  -->
+      <a :href="linkHref">{{ labelLink }}</a>
+      <br>
+      <!-- al click richiamo una funzione senza parametri  -->
+      <button @click="clickBtn1" class="btn btn-primary my-1 ">bottone 1</button>
+      <br>
+      <!-- al click richiamo una funzione CON parametri  -->
+      <button @click="cambioNome('Giuseppe')" class="btn btn-primary my-1 ">cambio nome</button>
+      <br>
+      <!-- al click non richiamo nessuna funzione ma è il @click stesso ad avere una piccola logica -->
+      <button @click="isActive = !isActive" class="btn btn-primary my-1 ">toggle isActive</button><br>
+      <!-- stessa azione copiuta da un metodo -->
+      <button @click="toggleIsActive" class="btn btn-primary my-1 ">toggle isActive con funzione</button>
+
+      <!-- v-html è come se facesse inneHTML e lo devo usare (al posto delle doppie graffe) se il testo da stampare contiene tag HTML  -->
+      <div v-html="testoHtml"></div>
+
+    </div>
+  </div>
+
+  
+  
+  <script src="js/script.js"></script>
+</body>
+</html>
